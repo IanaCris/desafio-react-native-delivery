@@ -76,12 +76,14 @@ const FoodDetails: React.FC = () => {
       // Load a specific food with extras based on routeParams id
       const response = await api.get(`foods/${routeParams.id}`);
 
+      const foodDetail = response.data;
+
       const foodData = {
-        ...response.data,
-        formattedPrice: formatValue(response.data.price),
+        ...foodDetail,
+        formattedPrice: formatValue(foodDetail.price),
       } as Food;
 
-      const extrasData = response.data.extras.map((extra: Extra) => ({
+      const extrasData = foodDetail.extras.map((extra: Extra) => ({
         ...extra,
         quantity: 0,
       }));
